@@ -1,9 +1,3 @@
-package com.boukada.geek.y2021.d1;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,29 +10,18 @@ import org.jeasy.rules.annotation.Rule;
 import org.jeasy.rules.api.Fact;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.api.RulesEngine;
-import org.jeasy.rules.api.RulesEngineParameters;
-import org.jeasy.rules.core.InferenceRulesEngine;
 
-public class WithEasyRules {
+public class Day1 {
 
-    public static void main(String[] args) throws URISyntaxException, IOException {
-        if (args == null || args.length != 1 || !List.of("part1", "part2").contains(args[0])) {
-            System.err.println("You should pass 'part1' or 'part2' as program argument");
-            return;
-        }
-        if ("part1".equals(args[0])) {
-            part1();
-        } else if ("part2".equals(args[0])) {
-            part2();
-        }
+    public static void main(String[] args) {
+        Utils.exec(args, Day1::part1, Day1::part2);
     }
 
-    public static void part1() throws URISyntaxException, IOException {
+    public static void part1() {
         process(readInput());
     }
 
-    public static void part2() throws URISyntaxException, IOException {
+    public static void part2() {
         List<Integer> measures = readInput();
         List<Integer> threeMeasurements = new ArrayList<>();
         for (int i = 0; i < measures.size() - 2; i++) {
@@ -47,15 +30,11 @@ public class WithEasyRules {
         process(threeMeasurements);
     }
 
-    static List<Integer> readInput() throws URISyntaxException, IOException {
-        List<String> lines = Files.readAllLines(Path.of(Objects.requireNonNull(WithEasyRules.class.getResource("/y2021/d1/input.txt")).toURI()));
-        return lines.stream().map(Integer::valueOf).collect(Collectors.toList());
+    static List<Integer> readInput() {
+        return Utils.readInput("/d1/input.txt").stream().map(Integer::valueOf).collect(Collectors.toList());
     }
 
     static void process(List<Integer> measures) {
-        RulesEngineParameters parameters = new RulesEngineParameters(false, false, false, Integer.MAX_VALUE);
-        RulesEngine engine = new InferenceRulesEngine(parameters);
-
         Rules rules = new Rules();
         rules.register(new IncreasedRule());
         rules.register(new DecreasedRule());
@@ -64,7 +43,7 @@ public class WithEasyRules {
         facts.add(new Fact<>("count", new AtomicInteger(0)));
         facts.add(new Fact<>("measures", measures));
         while (measures.size() > 1) {
-            engine.fire(rules, facts);
+            Utils.fire(rules, facts);
         }
 
         System.out.println("Nb increased : " + facts.get("count"));
