@@ -1,3 +1,5 @@
+package adventofcode.v2021;
+
 import static java.lang.Integer.max;
 import static java.lang.Integer.min;
 import static java.lang.Integer.parseInt;
@@ -11,6 +13,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import adventofcode.Utils;
 import org.jeasy.rules.api.Fact;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
@@ -55,7 +58,7 @@ public class Day5 {
     }
 
     static List<Line> readInput() {
-        return Utils.readInput("/d5/input.txt").stream()
+        return Utils.readInput("/v2021/d5/input.txt").stream()
             .map(pattern::matcher)
             .filter(Matcher::matches)
             .map(matcher -> new Line(new Coordinate(parseInt(matcher.group(1)), parseInt(matcher.group(2))),

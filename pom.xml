@@ -12,7 +12,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>17</java.version>
     <easy-rules.version>4.1.0</easy-rules.version>
-    <lombok.version>1.18.20</lombok.version>
+    <lombok.version>1.18.24</lombok.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
   </properties>
 
@@ -26,12 +26,12 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
-      <version>1.2.6</version>
+      <version>1.4.5</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.2.6</version>
+      <version>1.4.5</version>
     </dependency>
     <dependency>
       <groupId>org.jeasy</groupId>

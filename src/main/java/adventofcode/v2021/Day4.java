@@ -1,3 +1,5 @@
+package adventofcode.v2021;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -6,6 +8,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import adventofcode.Utils;
 import org.jeasy.rules.api.Fact;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
@@ -30,7 +33,7 @@ public class Day4 {
     }
 
     public static void process(int winnerPosition) {
-        List<String> input = Utils.readInput("/d4/input.txt");
+        List<String> input = Utils.readInput("/v2021/d4/input.txt");
         List<Integer> draw = draw(input);
         List<Board> boards = boards(input);
 

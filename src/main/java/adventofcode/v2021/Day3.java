@@ -1,9 +1,12 @@
+package adventofcode.v2021;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import adventofcode.Utils;
 import org.jeasy.rules.api.Fact;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
@@ -75,7 +78,7 @@ public class Day3 {
     }
 
     private static List<String> getReport() {
-        return Utils.readInput("/d3/input.txt");
+        return Utils.readInput("/v2021/d3/input.txt");
     }
 
     public static class MostCommonBitRule implements Rule {

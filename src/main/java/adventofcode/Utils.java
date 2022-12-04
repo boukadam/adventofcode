@@ -1,3 +1,5 @@
+package adventofcode;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -19,7 +21,7 @@ public class Utils {
 
     public static List<String> readInput(String filename) {
         try {
-            return Files.readAllLines(Path.of(Objects.requireNonNull(Day1.class.getResource(filename)).toURI()));
+            return Files.readAllLines(Path.of(Objects.requireNonNull(Utils.class.getResource(filename)).toURI()));
         } catch (IOException | URISyntaxException e) {
             System.err.println("Error while reading " + filename);
         }

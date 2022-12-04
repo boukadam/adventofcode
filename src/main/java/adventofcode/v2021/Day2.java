@@ -1,3 +1,5 @@
+package adventofcode.v2021;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -5,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import adventofcode.Utils;
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Rule;
@@ -50,7 +53,7 @@ public class Day2 {
     }
 
     static List<Instruction> readInput() {
-        return Utils.readInput("/d2/input.txt").stream()
+        return Utils.readInput("/v2021/d2/input.txt").stream()
             .map(pattern::matcher)
             .filter(Matcher::matches)
             .map(matcher -> new Instruction(Command.valueOf(matcher.group(1).toUpperCase()), Integer.valueOf(matcher.group(2))))

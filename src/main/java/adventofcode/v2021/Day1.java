@@ -1,9 +1,12 @@
+package adventofcode.v2021;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import adventofcode.Utils;
 import org.jeasy.rules.annotation.Action;
 import org.jeasy.rules.annotation.Condition;
 import org.jeasy.rules.annotation.Rule;
@@ -31,7 +34,7 @@ public class Day1 {
     }
 
     static List<Integer> readInput() {
-        return Utils.readInput("/d1/input.txt").stream().map(Integer::valueOf).collect(Collectors.toList());
+        return Utils.readInput("/v2021/d1/input.txt").stream().map(Integer::valueOf).collect(Collectors.toList());
     }
 
     static void process(List<Integer> measures) {
