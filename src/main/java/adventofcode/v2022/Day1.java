@@ -10,7 +10,7 @@ import java.util.List;
 public class Day1 {
 
     public static void main(String[] args) {
-        Utils.exec(args, Day1::part1, Day1::part2);
+        Utils.exec(Day1::part1, Day1::part2);
     }
 
     public static void part1() {

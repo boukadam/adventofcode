@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class Day6 {
 
     public static void main(String[] args) {
-        Utils.exec(args, Day6::part1, Day6::part2);
+        Utils.exec(Day6::part1, Day6::part2);
     }
 
     public static void part1() {

@@ -16,7 +16,7 @@ public class Day7 {
 
 
     public static void main(String[] args) {
-        Utils.exec(args, Day7::part1, Day7::part2);
+        Utils.exec(Day7::part1, Day7::part2);
     }
 
     public static void part1() {

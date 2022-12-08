@@ -1,5 +1,12 @@
 package adventofcode;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.jeasy.rules.api.Facts;
+import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.api.RulesEngineParameters;
+import org.jeasy.rules.core.InferenceRulesEngine;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -7,15 +14,9 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 
-import org.jeasy.rules.api.Facts;
-import org.jeasy.rules.api.Rules;
-import org.jeasy.rules.api.RulesEngine;
-import org.jeasy.rules.api.RulesEngineParameters;
-import org.jeasy.rules.core.InferenceRulesEngine;
-
 public class Utils {
 
-    private static RulesEngine ENGINE = new InferenceRulesEngine(new RulesEngineParameters(false, false, false, Integer.MAX_VALUE));
+    private static final RulesEngine ENGINE = new InferenceRulesEngine(new RulesEngineParameters(false, false, false, Integer.MAX_VALUE));
 
     private Utils() {}
 
@@ -37,6 +38,18 @@ public class Utils {
             part1.run();
         } else if ("part2".equals(args[0])) {
             part2.run();
+        }
+    }
+
+    public static void exec(Runnable... parts) {
+        if (ArrayUtils.isEmpty(parts)) {
+            System.out.println("Nothing to do");
+            return;
+        }
+
+        for (int i = 0; i < parts.length; i++) {
+            System.out.println("## Running part " + (i + 1));
+            parts[i].run();
         }
     }
 

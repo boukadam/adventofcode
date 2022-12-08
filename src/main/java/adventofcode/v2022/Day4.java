@@ -8,7 +8,7 @@ import java.util.List;
 public class Day4 {
 
     public static void main(String[] args) {
-        Utils.exec(args, Day4::part1, Day4::part2);
+        Utils.exec(Day4::part1, Day4::part2);
     }
 
     public static void part1() {

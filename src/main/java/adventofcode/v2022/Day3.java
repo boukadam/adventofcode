@@ -13,7 +13,7 @@ public class Day3 {
     private static final String VALUES = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public static void main(String[] args) {
-        Utils.exec(args, Day3::part1, Day3::part2);
+        Utils.exec(Day3::part1, Day3::part2);
     }
 
     public static void part1() {

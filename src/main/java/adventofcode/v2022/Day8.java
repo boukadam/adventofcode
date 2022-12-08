@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Day8 {
 
     public static void main(String[] args) {
-        Utils.exec(args, Day8::part1, Day8::part2);
+        Utils.exec(Day8::part1, Day8::part2);
     }
 
     public static void part1() {

@@ -16,7 +16,7 @@ public class Day5 {
     private static final Pattern OPERATION_PATTERN = Pattern.compile("^move (\\d+) from (\\d) to (\\d)$");
 
     public static void main(String[] args) {
-        Utils.exec(args, Day5::part1, Day5::part2);
+        Utils.exec(Day5::part1, Day5::part2);
     }
 
     public static void part1() {
