@@ -1,7 +1,6 @@
 package adventofcode.v2022;
 
 import adventofcode.Utils;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,10 +15,8 @@ public class Day14 {
     }
 
     public static void part1() {
-        Pair<Integer, boolean[][]> pair = rocks();
-        print(pair.getRight());
-        boolean[][] grid =pair.getRight();
-        int sandSource = 500 - pair.getLeft();
+        boolean[][] grid = rocks();
+        int sandSource = 500;
         int sandCount = 0;
         while (!grid[1][sandSource]) {
             try {
@@ -36,11 +33,38 @@ public class Day14 {
             sandCount++;
         }
         System.out.println("Sand count : " + sandCount);
-        print(grid);
     }
 
     public static void part2() {
+        boolean[][] grid = rocks();
+        boolean[][] largeGrid = new boolean[grid.length + 2][99999];
 
+        for (int i = 0; i < grid.length; i++) {
+            System.arraycopy(grid[i], 0, largeGrid[i], 0, grid[i].length);
+        }
+        for (int i = 0; i < grid[0].length; i++) {
+            largeGrid[grid.length][i] = false;
+        }
+        for (int i = 0; i < 99999; i++) {
+            largeGrid[grid.length + 1][i] = true;
+        }
+        int sandSource = 500;
+        int sandCount = 0;
+        while (!largeGrid[0][sandSource]) {
+            try {
+                Coordinate sandPosition = new Coordinate(sandSource, 0);
+                Coordinate nextSandPosition = moveSand(sandPosition, largeGrid);
+                while (!sandPosition.equals(nextSandPosition)) {
+                    sandPosition = nextSandPosition;
+                    nextSandPosition = moveSand(sandPosition, largeGrid);
+                }
+                largeGrid[sandPosition.y()][sandPosition.x()] = true;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                break;
+            }
+            sandCount++;
+        }
+        System.out.println("Sand count : " + sandCount);
     }
 
     static Coordinate moveSand(Coordinate sandPosition, boolean[][] grid) {
@@ -69,7 +93,7 @@ public class Day14 {
         }
     }
 
-    static Pair<Integer, boolean[][]> rocks() {
+    static boolean[][] rocks() {
         List<List<Coordinate>> lines = Utils.readInput("/v2022/d14/input.txt").stream()
             .map(line -> Arrays.stream(line.split(" -> "))
                 .map(item -> {
@@ -80,22 +104,10 @@ public class Day14 {
             )
             .toList();
 
-        int minX = lines.stream()
-            .flatMap(Collection::stream)
-            .map(Coordinate::x)
-            .min(Comparator.naturalOrder())
-            .orElse(0);
-
         int maxX = lines.stream()
             .flatMap(Collection::stream)
             .map(Coordinate::x)
             .max(Comparator.naturalOrder())
-            .orElse(0);
-
-        int minY = lines.stream()
-            .flatMap(Collection::stream)
-            .map(Coordinate::y)
-            .min(Comparator.naturalOrder())
             .orElse(0);
 
         int maxY = lines.stream()
@@ -104,9 +116,7 @@ public class Day14 {
             .max(Comparator.naturalOrder())
             .orElse(0);
 
-        System.out.println("minX=" + minX + ", maxX=" + maxX + " / minY=" + minY + ", maxY=" + maxY);
-
-        boolean[][] rocks = new boolean[maxY + 1][maxX - minX + 1];
+        boolean[][] rocks = new boolean[maxY + 1][maxX + 1];
 
         lines.forEach(list -> IntStream.range(1, list.size())
             .forEach(i -> {
@@ -114,12 +124,12 @@ public class Day14 {
                 Coordinate end = list.get(i);
                 for (int k = Math.min(start.y, end.y); k <= Math.max(start.y, end.y); k++) {
                     for (int j = Math.min(start.x, end.x); j <= Math.max(start.x, end.x); j++) {
-                        rocks[k][j - minX] = true;
+                        rocks[k][j] = true;
                     }
                 }
             })
         );
-        return Pair.of(minX, rocks);
+        return rocks;
     }
 
     record Coordinate(int x, int y) {
