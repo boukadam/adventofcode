@@ -16,23 +16,7 @@ public class Day14 {
 
     public static void part1() {
         boolean[][] grid = rocks();
-        int sandSource = 500;
-        int sandCount = 0;
-        while (!grid[1][sandSource]) {
-            try {
-                Coordinate sandPosition = new Coordinate(sandSource, 0);
-                Coordinate nextSandPosition = moveSand(sandPosition, grid);
-                while (!sandPosition.equals(nextSandPosition)) {
-                    sandPosition = nextSandPosition;
-                    nextSandPosition = moveSand(sandPosition, grid);
-                }
-                grid[sandPosition.y()][sandPosition.x()] = true;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                break;
-            }
-            sandCount++;
-        }
-        System.out.println("Sand count : " + sandCount);
+        process(grid, 1);
     }
 
     public static void part2() {
@@ -48,17 +32,21 @@ public class Day14 {
         for (int i = 0; i < 99999; i++) {
             largeGrid[grid.length + 1][i] = true;
         }
+        process(largeGrid, 0);
+    }
+
+    private static void process(boolean[][] grid, int x) {
         int sandSource = 500;
         int sandCount = 0;
-        while (!largeGrid[0][sandSource]) {
+        while (!grid[x][sandSource]) {
             try {
                 Coordinate sandPosition = new Coordinate(sandSource, 0);
-                Coordinate nextSandPosition = moveSand(sandPosition, largeGrid);
+                Coordinate nextSandPosition = moveSand(sandPosition, grid);
                 while (!sandPosition.equals(nextSandPosition)) {
                     sandPosition = nextSandPosition;
-                    nextSandPosition = moveSand(sandPosition, largeGrid);
+                    nextSandPosition = moveSand(sandPosition, grid);
                 }
-                largeGrid[sandPosition.y()][sandPosition.x()] = true;
+                grid[sandPosition.y()][sandPosition.x()] = true;
             } catch (ArrayIndexOutOfBoundsException e) {
                 break;
             }

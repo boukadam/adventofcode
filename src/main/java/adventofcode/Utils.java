@@ -48,8 +48,10 @@ public class Utils {
         }
 
         for (int i = 0; i < parts.length; i++) {
+            long start = System.currentTimeMillis();
             System.out.println("## Running part " + (i + 1));
             parts[i].run();
+            System.out.println("Part " + (i + 1) + " finished on " + (System.currentTimeMillis() - start) + "ms");
         }
     }
 
