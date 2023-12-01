@@ -8,3 +8,7 @@ Solutions for https://adventofcode.com/2021
 Solutions for https://adventofcode.com/2022
 
 * [java](src/main/java/adventofcode/v2022)
+
+Solutions for https://adventofcode.com/2023
+
+* [kotlin](src/main/kotlin/adventofcode/v2023)
