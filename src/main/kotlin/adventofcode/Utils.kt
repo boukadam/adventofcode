@@ -5,7 +5,7 @@ import java.security.MessageDigest
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
-fun readInput(name: String) = Path("src/main/resources/$name/input.txt").readLines()
+fun readInput(name: String) = Path("src/main/resources/$name.txt").readLines()
 
 /**
  * Converts string to md5 hash.

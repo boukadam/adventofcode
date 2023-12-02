@@ -3,8 +3,6 @@ package adventofcode.v2023
 import adventofcode.println
 import adventofcode.readInput
 
-
-
 fun main() {
 
     fun String.getFirstAndLast() = first() to last()
@@ -76,7 +74,7 @@ fun main() {
                 .sum();
     }
 
-    val input = readInput("v2023/d1")
+    val input = readInput("v2023/d1/input")
 
     part1(input).println()
     part2(input).println()
