@@ -4,7 +4,7 @@ import adventofcode.println
 import adventofcode.readInput
 import java.util.Comparator
 
-enum class Type(val rank: Int) {
+private enum class Type(val rank: Int) {
     FIVE_OF_A_KIND(7),
     FOUR_OF_A_KIND(6),
     FULL_HOUSE(5),
@@ -14,7 +14,7 @@ enum class Type(val rank: Int) {
     HIGH_CARD(1)
 }
 
-data class Hand(val value: String, val bid: Int, val type: Type)
+private data class Hand(val value: String, val bid: Int, val type: Type)
 
 fun cardValue(card: Char, part1: Boolean): Int {
     return when (card) {
@@ -30,7 +30,7 @@ fun cardValue(card: Char, part1: Boolean): Int {
     }
 }
 
-fun getType(hand: String): Type {
+private fun getType(hand: String): Type {
     val groupBy = hand.asSequence()
         .groupBy { c -> c }
         .values.sortedByDescending { c -> c.size }
@@ -55,7 +55,7 @@ fun getType(hand: String): Type {
     return Type.FIVE_OF_A_KIND
 }
 
-fun getTypePart2(hand: String): Type {
+private fun getTypePart2(hand: String): Type {
     val groupBy = hand.asSequence().groupBy { c -> c }
     val jokers = groupBy.getOrDefault('J', listOf())
     if (jokers.isEmpty()) {
@@ -73,7 +73,7 @@ fun getTypePart2(hand: String): Type {
     return getType(newHand)
 }
 
-fun compareTo(hand1: Hand, hand2: Hand, part1: Boolean): Int {
+private fun compareTo(hand1: Hand, hand2: Hand, part1: Boolean): Int {
     if (hand1.type != hand2.type) {
         return hand1.type.rank - hand2.type.rank
     }
@@ -115,14 +115,14 @@ fun main() {
     part2(parsePart2(input)).println()
 }
 
-fun parse(input: List<String>): List<Hand> {
+private fun parse(input: List<String>): List<Hand> {
     return input.asSequence()
         .map { line -> line.split(" ") }
         .map { elements -> Hand(elements[0], elements[1].toInt(), getType(elements[0])) }
         .toList()
 }
 
-fun parsePart2(input: List<String>): List<Hand> {
+private fun parsePart2(input: List<String>): List<Hand> {
     return input.asSequence()
         .map { line -> line.split(" ") }
         .map { elements -> Hand(elements[0], elements[1].toInt(), getTypePart2(elements[0])) }
