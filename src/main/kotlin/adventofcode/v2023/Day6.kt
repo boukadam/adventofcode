@@ -51,7 +51,7 @@ fun parseRaces(input: List<String>): List<Race> {
         .toList()
 }
 
-fun parseLine(input: String): List<Long> {
+private fun parseLine(input: String): List<Long> {
     return input.split(" ")
         .asSequence()
         .map { s -> s.filter { it.isDigit() } }
