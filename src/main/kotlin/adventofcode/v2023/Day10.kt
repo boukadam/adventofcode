@@ -3,7 +3,7 @@ package adventofcode.v2023
 import adventofcode.println
 import adventofcode.readInput
 
-enum class Direction {
+private enum class Direction {
     NORTH,
     SOUTH,
     WEST,

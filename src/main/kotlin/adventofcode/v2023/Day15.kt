@@ -5,7 +5,6 @@ import adventofcode.readInput
 import org.apache.commons.collections4.map.LinkedMap
 
 private data class Step(val label: String, val hash: Int, val operation: Char, val length: Int?)
-private data class Lens(val label: String, var length: Int)
 
 fun main() {
 

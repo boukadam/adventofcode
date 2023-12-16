@@ -3,7 +3,7 @@ package adventofcode.v2023
 import adventofcode.println
 import adventofcode.readInput
 
-val cache = mutableMapOf<String, Long>()
+private val cache = mutableMapOf<String, Long>()
 
 fun main() {
 

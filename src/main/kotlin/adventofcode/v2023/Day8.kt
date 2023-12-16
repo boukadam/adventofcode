@@ -4,11 +4,11 @@ import adventofcode.println
 import adventofcode.readInput
 import java.math.BigInteger
 
-enum class NodeType {
+private enum class NodeType {
     START, MIDDLE, END
 }
 
-data class Node(val id: String, val left: String, val right: String, val type: NodeType)
+private data class Node(val id: String, val left: String, val right: String, val type: NodeType)
 
 fun main() {
 
@@ -58,11 +58,15 @@ private fun parse(input: List<String>): Map<String, Node> {
         .map(regexLine::find)
         .filterNotNull()
         .map { result -> result.destructured }
-        .map { tuple -> tuple.component1() to Node(tuple.component1(), tuple.component2(), tuple.component3(), when {
-            tuple.component1().endsWith('A') -> NodeType.START
-            tuple.component1().endsWith('Z') -> NodeType.END
-            else -> NodeType.MIDDLE
-        }) }
+        .map { tuple ->
+            tuple.component1() to Node(
+                tuple.component1(), tuple.component2(), tuple.component3(), when {
+                    tuple.component1().endsWith('A') -> NodeType.START
+                    tuple.component1().endsWith('Z') -> NodeType.END
+                    else -> NodeType.MIDDLE
+                }
+            )
+        }
         .toList()
         .toMap()
 }

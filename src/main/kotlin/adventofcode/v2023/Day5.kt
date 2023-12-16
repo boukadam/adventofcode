@@ -6,17 +6,18 @@ import java.util.concurrent.atomic.AtomicLong
 import kotlin.math.min
 import kotlin.streams.asStream
 
-data class Data(val seedsLine: String,
-                val seedToSoilLines: MutableList<String> = mutableListOf(),
-                val soilToFertilizerLines : MutableList<String> = mutableListOf(),
-                val fertilizerToWaterLines : MutableList<String> = mutableListOf(),
-                val waterToLightLines : MutableList<String> = mutableListOf(),
-                val lightToTemperatureLines : MutableList<String> = mutableListOf(),
-                val temperatureToHumidityLines : MutableList<String> = mutableListOf(),
-                val humidityToLocationLines : MutableList<String> = mutableListOf()
+private data class Data(
+    val seedsLine: String,
+    val seedToSoilLines: MutableList<String> = mutableListOf(),
+    val soilToFertilizerLines: MutableList<String> = mutableListOf(),
+    val fertilizerToWaterLines: MutableList<String> = mutableListOf(),
+    val waterToLightLines: MutableList<String> = mutableListOf(),
+    val lightToTemperatureLines: MutableList<String> = mutableListOf(),
+    val temperatureToHumidityLines: MutableList<String> = mutableListOf(),
+    val humidityToLocationLines: MutableList<String> = mutableListOf()
 )
 
-data class Category(val target: Long, val source: Long, val pace: Long)
+private data class Category(val target: Long, val source: Long, val pace: Long)
 
 fun main() {
 
@@ -52,7 +53,7 @@ fun main() {
             .map { s -> s.toLong() }
         var min = Long.MAX_VALUE
         for (i in values.indices step 2) {
-            for (v in values[i]..(values[i] + values[i+1])) {
+            for (v in values[i]..(values[i] + values[i + 1])) {
                 val location = getLocation(v)
                 min = minOf(min, location)
             }
@@ -64,7 +65,7 @@ fun main() {
     part2().println()
 }
 
-fun correspondance(item: Long, categories: List<Category>): Long {
+private fun correspondance(item: Long, categories: List<Category>): Long {
     for (category in categories) {
         if (item in (category.source..<category.source + category.pace)) {
             return category.target + (item - category.source)
@@ -73,26 +74,26 @@ fun correspondance(item: Long, categories: List<Category>): Long {
     return item
 }
 
-fun parseSeedsPart1(data: String): List<Long> {
+private fun parseSeedsPart1(data: String): List<Long> {
     return data.replace("seeds: ", "")
         .split(" ")
         .map { s -> s.toLong() }
 }
 
-fun parseCategories(data: List<String>): List<Category> {
+private fun parseCategories(data: List<String>): List<Category> {
     val regexLine = Regex("^(\\d+) (\\d+) (\\d+)\$")
     return data.asSequence()
         .map(regexLine::find)
         .filterNotNull()
         .map { result -> result.destructured }
-        .map { tuple -> Category(tuple.component1().toLong(), tuple.component2().toLong(), tuple.component3().toLong())}
+        .map { tuple -> Category(tuple.component1().toLong(), tuple.component2().toLong(), tuple.component3().toLong()) }
         .toList()
 }
 
-fun parseData(input: List<String>): Data {
+private fun parseData(input: List<String>): Data {
     val iterator = input.iterator()
     val data = Data(iterator.next())
-    var currentList : MutableList<String> = mutableListOf()
+    var currentList: MutableList<String> = mutableListOf()
     while (iterator.hasNext()) {
         val next = iterator.next()
         if (next.isBlank()) {

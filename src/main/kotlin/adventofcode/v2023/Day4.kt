@@ -5,7 +5,7 @@ import adventofcode.readInput
 import java.util.*
 import kotlin.collections.HashMap
 
-data class Card(val id: Int, val winnings: Set<Int>, val possessions: Set<Int>)
+private data class Card(val id: Int, val winnings: Set<Int>, val possessions: Set<Int>)
 
 fun main() {
 
@@ -48,7 +48,7 @@ fun main() {
     part2(cards).println()
 }
 
-fun parseCards(input: List<String>): List<Card> {
+private fun parseCards(input: List<String>): List<Card> {
     val regexLine = Regex("^Card\\s+(\\d+): (.*) \\| (.*)\$")
     return input.asSequence()
         .map(regexLine::find)

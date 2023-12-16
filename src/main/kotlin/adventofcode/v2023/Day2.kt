@@ -4,8 +4,8 @@ import adventofcode.println
 import adventofcode.readInput
 import kotlin.math.min
 
-enum class RGB { red, green, blue }
-data class Game(val id: Int, val sets: List<Map<RGB, Int>>)
+private enum class RGB { red, green, blue }
+private data class Game(val id: Int, val sets: List<Map<RGB, Int>>)
 
 fun main() {
 

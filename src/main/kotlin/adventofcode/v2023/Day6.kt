@@ -3,7 +3,7 @@ package adventofcode.v2023
 import adventofcode.println
 import adventofcode.readInput
 
-data class Race(val time: Long, val distance: Long)
+private data class Race(val time: Long, val distance: Long)
 
 fun main() {
 
@@ -34,7 +34,7 @@ fun main() {
     part2(input).println()
 }
 
-fun simulate(race: Race): List<Long> {
+private fun simulate(race: Race): List<Long> {
     return LongRange(1, race.time)
         .asSequence()
         .map { holdingTime -> holdingTime * (race.time - holdingTime) }
@@ -42,7 +42,7 @@ fun simulate(race: Race): List<Long> {
         .toList()
 }
 
-fun parseRaces(input: List<String>): List<Race> {
+private fun parseRaces(input: List<String>): List<Race> {
     val times = parseLine(input[0])
     val distances = parseLine(input[1])
 

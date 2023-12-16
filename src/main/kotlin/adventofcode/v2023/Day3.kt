@@ -4,8 +4,8 @@ import adventofcode.println
 import adventofcode.readInput
 import java.lang.StringBuilder
 
-data class Part(val number: Int, val x: Int, val y: Int, val symbol: Symbol?)
-data class Symbol(val id: String, val symbol: Char, val x: Int, val y: Int)
+private data class Part(val number: Int, val x: Int, val y: Int, val symbol: Symbol?)
+private data class Symbol(val id: String, val symbol: Char, val x: Int, val y: Int)
 
 fun main() {
 

@@ -26,7 +26,7 @@ fun main() {
     part2(input).println()
 }
 
-fun getPreviousValue(tree: MutableList<MutableList<Int>>): Int {
+private fun getPreviousValue(tree: MutableList<MutableList<Int>>): Int {
     tree[0].add(0)
     for (i in (tree.size - 2) downTo 0) {
         val previousList = tree[i + 1]
@@ -36,7 +36,7 @@ fun getPreviousValue(tree: MutableList<MutableList<Int>>): Int {
     return tree[0][tree[0].size - 1]
 }
 
-fun getNextValue(tree: MutableList<MutableList<Int>>): Int {
+private fun getNextValue(tree: MutableList<MutableList<Int>>): Int {
     tree[tree.size - 1].add(0)
     for (i in (tree.size - 2) downTo 0) {
         val previousList = tree[i + 1]
@@ -46,7 +46,7 @@ fun getNextValue(tree: MutableList<MutableList<Int>>): Int {
     return tree[0][tree[0].size - 1]
 }
 
-fun getTree(line: String): MutableList<MutableList<Int>> {
+private fun getTree(line: String): MutableList<MutableList<Int>> {
     val first = line.split(" ").map { e -> e.toInt() }.toMutableList()
     val tree = mutableListOf(first)
     var current = first
@@ -57,7 +57,7 @@ fun getTree(line: String): MutableList<MutableList<Int>> {
     return tree
 }
 
-fun getDifferences(list: List<Int>): MutableList<Int> {
+private fun getDifferences(list: List<Int>): MutableList<Int> {
     val differences = mutableListOf<Int>()
     for (i in 0 until list.size - 1 step 1) {
         val element1 = list[i]
