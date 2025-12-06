@@ -23,7 +23,6 @@ public class Day11 {
         Utils.exec(Day11::part1, Day11::part2);
     }
 
-    @SneakyThrows
     public static void part1() {
         process(20, i -> (long) Math.floor((double) i / 3));
     }

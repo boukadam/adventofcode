@@ -1,5 +1,6 @@
 package adventofcode;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +20,8 @@ public class Utils {
 
     private static final RulesEngine ENGINE = new InferenceRulesEngine(new RulesEngineParameters(false, false, false, Integer.MAX_VALUE));
 
-    private Utils() {}
+    private Utils() {
+    }
 
     public static List<String> readInput(String filename) {
         try {
@@ -27,6 +30,24 @@ public class Utils {
             System.err.println("Error while reading " + filename);
         }
         return List.of();
+    }
+
+    public static List<List<String>> readInputSplitBy(String filename, String separatorLine) {
+        List<String> lines = readInput(filename);
+        List<List<String>> result = new ArrayList<>();
+        List<String> subList = new ArrayList<>();
+        for (String line : lines) {
+            if (line.equals(separatorLine)) {
+                result.add(subList);
+                subList = new ArrayList<>();
+            } else {
+                subList.add(line);
+            }
+        }
+        if (CollectionUtils.isNotEmpty(subList)) {
+            result.add(subList);
+        }
+        return result;
     }
 
     public static void exec(String[] args, Runnable part1, Runnable part2) {
