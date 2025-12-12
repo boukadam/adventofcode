@@ -1,5 +1,6 @@
 package adventofcode.v2025;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,50 +31,53 @@ public class Day9 {
 
     public static void part2() {
         List<Coordinate> coordinates = readInput();
-        Map<Long, Set<Pair>> squares = new HashMap<>();
+        List<Square> segs = new ArrayList<>();
+        Coordinate prev = coordinates.get(coordinates.size() - 1);
+
+        for (Coordinate cur : coordinates) {
+            segs.add(Square.of(prev, cur));
+            prev = cur;
+        }
+
+        List<Square> squares = new ArrayList<>();
         for (Coordinate coordinate : coordinates) {
             for (Coordinate otherCoordinate : coordinates) {
                 Square square = Square.of(coordinate, otherCoordinate);
-                if (square.corners().stream().allMatch(c -> isInsideOrOnBorder(c, coordinates))) {
-                    Set<Pair> pairs = squares.compute(square.area(), (k, v) -> v == null ? new HashSet<>() : v);
-                    pairs.add(new Pair(coordinate, otherCoordinate));
-                }
-            }
-        }
-        System.out.println("total : " + squares.keySet().stream().max(Comparator.naturalOrder()));
-    }
-
-    private static boolean isInsideOrOnBorder(Coordinate c, List<Coordinate> poly) {
-        long crossings = 0;
-
-        for (int i = 0; i < poly.size(); i++) {
-            Coordinate a = poly.get(i);
-            Coordinate b = poly.get((i + 1) % poly.size());
-
-            if (a.y.equals(b.y) && c.y.equals(a.y) && c.x >= Math.min(a.x, b.x) && c.x <= Math.max(a.x, b.x)) {
-                return true;
-            }
-
-            if (a.x.equals(b.x) && c.x.equals(a.x) && c.y >= Math.min(a.y, b.y) && c.y <= Math.max(a.y, b.y)) {
-                return true;
-            }
-
-            if (a.x.equals(b.x)) {
-                long yMin = Math.min(a.y, b.y);
-                long yMax = Math.max(a.y, b.y);
-
-                if (c.y >= yMin && c.y < yMax && c.x < a.x) {
-                    crossings++;
-                }
+                squares.add(square);
             }
         }
 
-        return (crossings % 2) == 1;
+        squares.stream()
+            .sorted(Comparator.comparing(Square::area).reversed())
+            .filter(r -> segs.stream().allMatch(s -> !aabbCollision(r, s)))
+            .mapToLong(Square::area)
+            .findFirst()
+            .ifPresent(System.out::println);
+
     }
 
+    private static boolean aabbCollision(Square s1, Square s2) {
+        long s1MinX = Math.min(Math.min(s1.a().x(), s1.b().x()), Math.min(s1.c().x(), s1.d().x()));
+        long s1MaxX = Math.max(Math.max(s1.a().x(), s1.b().x()), Math.max(s1.c().x(), s1.d().x()));
+        long s1MinY = Math.min(Math.min(s1.a().y(), s1.b().y()), Math.min(s1.c().y(), s1.d().y()));
+        long s1MaxY = Math.max(Math.max(s1.a().y(), s1.b().y()), Math.max(s1.c().y(), s1.d().y()));
+
+        long s2MinX = Math.min(Math.min(s2.a().x(), s2.b().x()), Math.min(s2.c().x(), s2.d().x()));
+        long s2MaxX = Math.max(Math.max(s2.a().x(), s2.b().x()), Math.max(s2.c().x(), s2.d().x()));
+        long s2MinY = Math.min(Math.min(s2.a().y(), s2.b().y()), Math.min(s2.c().y(), s2.d().y()));
+        long s2MaxY = Math.max(Math.max(s2.a().y(), s2.b().y()), Math.max(s2.c().y(), s2.d().y()));
+
+        boolean separated =
+            s1MaxX <= s2MinX ||
+                s1MinX >= s2MaxX ||
+                s1MaxY <= s2MinY ||
+                s1MinY >= s2MaxY;
+
+        return !separated;
+    }
 
     static List<Coordinate> readInput() {
-        return Utils.readInput("/v2025/d9/example.txt")
+        return Utils.readInput("/v2025/d9/input.txt")
             .stream()
             .map(line -> line.split(","))
             .map(parts -> new Coordinate(Long.valueOf(parts[0]), Long.valueOf(parts[1])))
